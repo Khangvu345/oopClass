@@ -6,7 +6,7 @@ public class J01006 {
         long a = 0;
         long b = 1;
         for (int j = 2; j <= i; j++) {
-            long next = a + b;
+            long next = a + b; //phần khác so với python
             a = b;
             b = next;
         }
