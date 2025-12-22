@@ -5,7 +5,7 @@ public class J01009 {
         int n = sc.nextInt();
         long tong = 0;
         long tich = 1;
-        for (int i = 1; i <= n; i++) {
+        for (int i = 1; i <= n; i++) { // chú ý vòng lặp for đã tự động tăng i rồi
             tich *= i;
             tong += tich;
         }   
