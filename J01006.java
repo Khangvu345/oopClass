@@ -1,6 +1,6 @@
 import java.util.Scanner;
 public class J01006{
-    public static int fibo(int i){
+    public static int fibo(int i){ //đi từ trên xuống dễ TLE
         if (i <= 1){
             return i;
         }else {
