@@ -1,36 +1,29 @@
 import java.util.Scanner;
 public class J01014 {
-    public static void phanTichThuaSoNT(int number, long n){
-        System.out.print("Test "+number+": ");
-        if (n % 2 == 0) {
-            int count = 0;
-            while (n % 2 == 0) {
-                count++;
-                n /= 2;
-            }
-            System.out.print("2"+ "(" + count + ") ");
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int t = scanner.nextInt();
+        while (t-- > 0) {
+            long N = scanner.nextLong();
+            System.out.println((uocNguyenToMax(N)));
         }
-
-        for (int i = 3; i * i <= n; i += 2) {
-            int count = 0;
-            if (n % i == 0) {
-                while (n % i == 0) {
-                count++;
-                n /= i;
-                }
-                System.out.print(i+"("+count+") ");
-            }
-        }
-        if (n > 1) System.out.print(n+"(1)");
-        System.out.println();
+        scanner.close();
     }
-    public static void main(String[] args){
-        Scanner sc = new Scanner(System.in);
-        int T = sc.nextInt();
-        for (int i = 1; i <= T; i++) {
-            long n = sc.nextLong();
-            phanTichThuaSoNT(i, n);
+    public static long uocNguyenToMax(long n) {
+        long maxPrime = -1;
+        while (n % 2 == 0) {
+            maxPrime = 2;
+            n /= 2;
         }
-        sc.close();
+        for (long i = 3; i <= Math.sqrt(n); i += 2) {
+            while (n % i == 0) {
+                maxPrime = i;
+                n /= i;
+            }
+        }
+        if (n > 2) {
+            maxPrime = n;
+        }
+        return maxPrime;
     }
 }
