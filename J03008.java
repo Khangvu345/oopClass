@@ -1,21 +1,16 @@
 import java.util.*;
 public class J03008 {
-    public static boolean soThuanNghich(String res){
-        for (int k = 0; k < res.length(); k++){
-            if (res.charAt(k) != res.charAt(res.length() - 1 - k)) return false;
-        }
-        return true;
+    // Vì duyệt từng chữ số mà số nguyên tố chỉ có 2,3,5,7 là 1 chữ số
+    public static boolean laSoNguyenTo(char c){
+        if (c == '2' || c == '3' || c == '5' || c == '7') return true;
+        return false;
     }
-    public static boolean soNguyenTo(int n){
-        if (n < 2) return false;
-        for (int i = 2; i <= Math.sqrt(n); i++){
-            if (n % i == 0) return false;
-        }
-        return true;
-    }
-    public static boolean kiemTraDayNguyenTo(int[] arr){
-        for (int i = 0; i < arr.length; i++){
-            if (!soNguyenTo(arr[i])) return false;
+    public static boolean check(String s){
+        int n = s.length();
+        for (int i = 0; i <= n/2; i++) //Vì duyệt chuỗi thuận nghịch nên đến n/2 là đủ
+        {
+            if (s.charAt(i) != s.charAt(n-i-1)) return false;
+            if (!laSoNguyenTo(s.charAt(i)) || !laSoNguyenTo(s.charAt(n-i-1))) return false;
         }
         return true;
     }
@@ -24,15 +19,8 @@ public class J03008 {
         int t = Integer.parseInt(sc.nextLine());
         while (t-- > 0){
             String res = sc.nextLine();
-            int [] arr = new int[res.length()];
-            for (int i = 0; i < res.length(); i++){
-                arr[i] = Integer.parseInt(String.valueOf(res.charAt(i)));
-            }
-            if (kiemTraDayNguyenTo(arr) && soThuanNghich(res)){
-                System.out.println("YES");
-            }else{
-                System.out.println("NO");
-            }       
+            if (check(res)) System.out.println("YES");
+            else System.out.println("NO");
         }
         sc.close();
     }
