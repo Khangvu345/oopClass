@@ -27,7 +27,7 @@ public class J05020 {
         }
         // Lỗi sai kinh điển khi so sánh String không được so sánh != và == 
         Collections.sort(ds, (a,b) -> {
-            if (a.lop != b.lop) return a.lop.compareTo(b.lop);
+            if (!a.lop.equals(b.lop)) return a.lop.compareTo(b.lop);
             return a.maSV.compareTo(b.maSV);
         });
         for (SV sv: ds){
