@@ -1,53 +1,25 @@
 import java.util.*;
 public class J05011 {
     public static class Gamer{
-        private String ma, hoTen, gioVao, gioRa, ketQua;
-        private int gioVaoP, gioRaP, time;
+        private String ma, hoTen, gioVao, gioRa;
+        private int tongThoiGian;
         public Gamer(String ma, String hoTen, String gioVao, String gioRa){
             this.ma = ma;
             this.hoTen = hoTen;
-            this.gioVao = gioVao;
-            this.gioRa = gioRa;
-            this.gioVaoP = this.toMinute();
-            this.gioRaP = this.toMinuteRa();
-            this.time = this.times();
-            this.ketQua = this.gioChoi();
-
+            this.tongThoiGian = toMinute(gioRa) - toMinute(gioVao);
         }
-
-        public int toMinute(){
-            String[] parts = this.gioVao.split(":");
-            int minutes = Integer.parseInt(parts[0]) * 60 + Integer.parseInt(parts[1]);
-            return this.gioVaoP = minutes;
-        }
-
-        public int toMinuteRa(){
-            String[] parts = this.gioRa.split(":");
-            int minutes = Integer.parseInt(parts[0]) * 60 + Integer.parseInt(parts[1]);
-            return this.gioRaP = minutes;
-        }
-
-        public int times(){
-            int time = this.gioRaP - this.gioVaoP;
-            return this.time = time;
-        }
-
-        public String gioChoi(){
-            StringBuilder result = new StringBuilder();
-            if (time > 60) {
-                result.append(time / 60);
-                result.append(" " + "gio" + " ");
-                result.append(time % 60);
-                result.append(" " + "phut");
-            }
-            else result.append(time + " " + "phut");
-            return this.ketQua = result.toString();
+        // Hàm helper giúp chuyển đổi bước trung gian lặp lại.
+        public int toMinute(String s){
+            String[] parts = s.split(":");
+            return Integer.parseInt(parts[0]) * 60 + Integer.parseInt(parts[1]);
         }
         @Override
+        // Cách chuyển đổi đúng định dạng dd:mm; Không in ra 60 phut ma la 1:00.
         public String toString(){
-            return String.format("%s %s %s", this.ma, this.hoTen, this.ketQua);
+            int h = tongThoiGian / 60;
+            int m = tongThoiGian % 60;
+            return String.format("%s %s %d gio %d phut", this.ma, this.hoTen, h, m);
         }
-
     }
 
     public static void main(String[] args){
@@ -59,7 +31,7 @@ public class J05011 {
             ds.add(g);
         }
         Collections.sort(ds, (a,b) -> {
-            return Integer.compare(b.times(), a.times());
+            return Integer.compare(b.tongThoiGian, a.tongThoiGian);
         });
         for (Gamer g: ds){
             System.out.println(g);
